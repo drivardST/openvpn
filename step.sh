@@ -50,7 +50,7 @@ EOF
     sleep 5
 
 #ping github server
-    sudo ping 10.181.75.40
+    sudo ping -t 5 10.181.75.40
 
 #check for vpn tunnel
     if ifconfig -l | grep utun0 > /dev/null
