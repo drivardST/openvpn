@@ -25,7 +25,7 @@ cert client.crt
 key client.key
 EOF
 
-    service openvpn start client > /dev/null 2>&1
+    service openvpn start client 
     sleep 5
 
     if ifconfig | grep tun0 > /dev/null
@@ -39,21 +39,21 @@ EOF
   darwin*)
     echo "Configuring for Mac OS"
 
-    echo ${ca_crt} | base64 -D -o ca.crt > /dev/null 2>&1
-    echo ${client_crt} | base64 -D -o client.crt > /dev/null 2>&1
-    echo ${client_key} | base64 -D -o client.key > /dev/null 2>&1
+    echo ${ca_crt} | base64 -D -o ca.crt 
+    echo ${client_crt} | base64 -D -o client.crt
+    echo ${client_key} | base64 -D -o client.key
 
-    sudo openvpn --client --dev tun --proto udp --remote remote --resolv-retry infinite --nobind --persist-key --persist-tun --comp-lzo --verb 3 --ca ca.crt --cert client.crt --key client.key --cipher AES-256-CBC > /dev/null 2>&1 &
+    sudo openvpn --client --dev tun --proto udp --remote remote --resolv-retry infinite --nobind --persist-key --persist-tun --comp-lzo --verb 3 --ca ca.crt --cert client.crt --key client.key --cipher AES-256-CBC &
 
     echo "Using AES-256-CBC"
 
-    sleep 5
+    sleep 10
 
 #ping github server
     sudo ping -t 5 10.181.75.40
 
 #check for vpn tunnel
-    if ifconfig -l | grep utun0 > /dev/null
+    if ifconfig -l | grep utun0 
     then
       echo "VPN connection succeeded"
     else
