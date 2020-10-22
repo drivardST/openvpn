@@ -43,7 +43,7 @@ EOF
     echo ${client_crt} | base64 -D -o client.crt
     echo ${client_key} | base64 -D -o client.key
 
-    sudo openvpn --client --dev tun --proto udp --remote remote --resolv-retry infinite --nobind --persist-key --persist-tun --comp-lzo --verb 3 --ca ca.crt --cert client.crt --key client.key --cipher AES-256-CBC &
+    sudo openvpn --client --dev tun --proto udp --remote {$host} {$port} --resolv-retry infinite --nobind --persist-key --persist-tun --comp-lzo --verb 3 --ca ca.crt --cert client.crt --key client.key --cipher AES-256-CBC &
 
     echo "Using AES-256-CBC"
 
